@@ -108,6 +108,8 @@ take some time to set up initially.
 Reprojecting rasters
 ......................................................................
 
+The 'warp' dialog (based on gdal-warp) can be used to reproject rasters from one CRS to another.
+
 Open :guilabel:`Warp (reproject)` from 
 :menuselection:`GDAL --> Raster projections`.
 
