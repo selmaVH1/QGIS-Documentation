@@ -945,6 +945,54 @@ you can install the QGIS plugin :guilabel:`Data Plotly`.
       Use Data plotly to plot the air quality observations at a location
 
 
+STAC (SpatioTemporal Asset Catalogs)
+====================================
+
+.. index:: STAC
+.. _stac:
+
+STAC (SpatioTemporal Asset Catalog) is a specification for describing geospatial
+data in a consistent and accessible way. It defines a standard structure for organizing
+and indexing spatial-temporal assets such as satellite imagery, drone photos, or sensor data
+so that you can search, preview, and use these datasets across different platforms and tools.
+
+In QGIS, STAC support is integrated as a native data provider,
+allowing users to connect to and browse STAC catalogs directly within the interface.
+STAC catalogs contain structured metadata about each dataset, including spatial and
+temporal coverage, asset type, and related properties. This metadata can be used to
+search for relevant datasets based on criteria like time of acquisition or geographic extent.
+
+Key components of STAC in QGIS include:
+
+* **STAC Items**: These represent one or more geospatial assets tied to a specific location and time.
+  For example, a satellite image may include multiple bands, each as a separate asset within the same item.
+* **STAC Collections**: Groups of related items that share common metadata.
+* **STAC Catalogs**: These are hierarchical structures that organize collections and items,
+  allowing users to navigate through datasets easily.
+
+
+Setting connection
+------------------
+
+To add STAC data to QGIS use the |stac| :guilabel:`STAC` tab in the :guilabel:`Data Source Manager` dialog.
+
+To establish a new connection, press :guilabel:`New` (or :guilabel:`New STAC Connection`
+from the Browser panel) and provide :guilabel:`Name` and :guilabel:`URL`. Advanced options,
+such as :ref:`authentication <authentication_index>` and a :guilabel:`Referer`, can also be configured.
+
+Press :guilabel:`OK` and then :guilabel:`Connect` to establish the connection, then you will be able to:
+
+* :guilabel:`Edit` the STAC connection settings
+* :guilabel:`Remove` the STAC connection
+
+.. figure:: img/.png
+   :align: center
+
+   add screenshot here
+
+
+
+
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.
    If you need to create a new substitution manually,
