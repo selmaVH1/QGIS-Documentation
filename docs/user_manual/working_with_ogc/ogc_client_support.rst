@@ -974,24 +974,82 @@ Key components of STAC in QGIS include:
 Setting connection
 ------------------
 
-To add STAC data to QGIS use the |stac| :guilabel:`STAC` tab in the :guilabel:`Data Source Manager` dialog.
+STAC connection can be added through either the :guilabel:`Browser panel` or the :guilabel:`Data Source Manager`:
 
-To establish a new connection, press :guilabel:`New` (or :guilabel:`New STAC Connection`
-from the Browser panel) and provide :guilabel:`Name` and :guilabel:`URL`. Advanced options,
-such as :ref:`authentication <authentication_index>` and a :guilabel:`Referer`, can also be configured.
+* **Browser Panel:**
+  In the :guilabel:`Browser`, right-click the |stac|:guilabel:`STAC` entry and select :guilabel:`New STAC Connection…`.
+  In the dialog that appears, enter a :guilabel:`Name` for the connection and the :guilabel:`URL` of the STAC
+  endpoint, then click :guilabel:`OK`.
 
-Press :guilabel:`OK` and then :guilabel:`Connect` to establish the connection, then you will be able to:
+* **Data Source Manager:**
+  Open the |dataSourceManager|:guilabel:`Data Source Manager`, choose the |stac|:guilabel:`STAC` tab and click the :guilabel:`New Connection` button.
+  Fill in the :guilabel:`Name` and :guilabel:`URL` fields, press :guilabel:`OK` and then
+  :guilabel:`Connect` to establish the connection, after that you will be able to:
 
-* :guilabel:`Edit` the STAC connection settings
-* :guilabel:`Remove` the STAC connection
+   * :guilabel:`Edit` the STAC connection settings
+   * :guilabel:`Remove` the STAC connection
 
-.. figure:: img/.png
-   :align: center
+  .. figure:: img/stac_connection.png
+     :align: center
 
-   add screenshot here
+     Creating a connection to a STAC server
 
+Browsing STAC Catalogs
+----------------------
 
+Once connected, the STAC catalog appears under |stac|:guilabel:`STAC` in the :guilabel:`Browser` panel
+or in the |dataSourceManager|:guilabel:`Data Source Manager` interface.
+You can expand the catalog node to see its :guilabel:`Collections`.
+Expanding a collection reveals the individual :guilabel:`Items` it contains.
 
+ .. figure:: img/stac_browser.png
+    :align: center
+
+    STAC connection expanded in the Browser, showing Collections and Items
+
+Right-click any STAC :guilabel:`Item` and choose :guilabel:`Details...` to view its metadata.
+The details pane shows the item’s JSON content and a map of its coverage.
+If an item’s asset is a cloud-optimized format (e.g. a COG), you can add it directly to the map canvas.
+Otherwise, :guilabel:`Download Assets...` before use.
+
+Filtering and Searching STAC Items
+----------------------------------
+
+For searchable catalogs (with API support), you can apply spatial and temporal filters or you
+can search for specific collestions.
+
+In the :guilabel:`STAC` tab of the :guilabel:`Data Source Manager`, click :guilabel:`Filters…` to open the filter dialog.
+
+ .. figure:: img/stac_filters.png
+    :align: center
+
+    Define spatial and temporal filters for a STAC catalog search
+
+In the filter dialog, you can set:
+
+* |checkbox| :guilabel:`Spatial extent` to restrict results to a specific area.
+* |checkbox| :guilabel:`Temporal extent` to restrict results to a specific time range.
+* |checkbox| :guilabel:`Only search within specific collections` to limit results to
+  specific collections within the catalog.
+
+Matching STAC Items are listed in the results panel. 
+Check the |checkbox|:guilabel:`Show Footprints` option to display item footprints on the map.
+Right-click a result item to access actions:
+
+* :guilabel:`Zoom to Item`
+* :guilabel:`Pan to Item`
+* :guilabel:`Download Assets`
+* :guilabel:`Details...`
+
+If the item’s asset requires download, use the :guilabel:`Download Assets` option.
+
+ .. figure:: img/stac_download.png
+    :align: center
+
+    Download STAC item assets
+
+Select the path and the objects you want to download.
+It contains the main dataset and other auxiliary data (e.g. style, thumbnail, etc).
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.
@@ -1026,6 +1084,8 @@ Press :guilabel:`OK` and then :guilabel:`Connect` to establish the connection, t
 .. |selectString| image:: /static/common/selectstring.png
    :width: 2.5em
 .. |setProjection| image:: /static/common/mActionSetProjection.png
+   :width: 1.5em
+.. |stac| image:: /static/common/mIconStac.png
    :width: 1.5em
 .. |unchecked| image:: /static/common/unchecked.png
    :width: 1.3em
