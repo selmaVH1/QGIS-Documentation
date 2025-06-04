@@ -1016,7 +1016,7 @@ Filtering and Searching STAC Items
 ----------------------------------
 
 For searchable catalogs (with API support), you can apply spatial and temporal filters or you
-can search for specific collestions.
+can search for specific collections.
 
 In the :guilabel:`STAC` tab of the :guilabel:`Data Source Manager`, click :guilabel:`Filters…` to open the filter dialog.
 
