@@ -1034,7 +1034,8 @@ Otherwise, :guilabel:`Download Assets...` to save it locally before use.
 Filtering and Searching STAC Items
 ----------------------------------
 
-For STAC API endpoints, QGIS supports spatial and temporal filtering, as well as limiting searches to specific collections.
+For searchable catalogs (with API support), you can apply spatial and temporal filters or you
+can search for specific collections.
 
 To search for items:
 
