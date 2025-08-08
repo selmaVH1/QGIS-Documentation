@@ -17,8 +17,65 @@ inspecting, copying and loading QGIS resources.
 Only resources that QGIS knows how to handle are shown in the
 browser.
 
-Using the Browser panel you can locate, inspect and add data, as
-described in :ref:`browser_panel`.
+Using the Browser panel you can locate, inspect and add data.
+It's available as:
+
+* a :guilabel:`Data Source Manager` tab, enabled pressing the
+  |dataSourceManager| :sup:`Open Data Source Manager` button (:kbd:`Ctrl+L`);
+* as a QGIS panel you can open from the menu :menuselection:`View --> Panels`
+  (or |kde| :menuselection:`Settings --> Panels`) or by pressing :kbd:`Ctrl+2`.
+
+Exploring the Interface
+-----------------------
+
+At the top of the Browser panel, you find some buttons that help you to:
+
+* |addLayer| :sup:`Add Selected Layers`: you can also add data to the map
+  canvas by selecting **Add selected layer(s)** from the layer's context menu;
+* |refresh| :sup:`Refresh` the browser tree;
+* |filterMap| :sup:`Filter Browser` to search for specific data. Enter a search
+  word or wildcard and the browser will filter the tree to only show paths to
+  matching DB tables, filenames or folders -- other data or folders won't be
+  displayed. See the Browser Panel(2) example in :numref:`figure_browser_panels`.
+  The comparison can be case-sensitive or not. It can also be set to:
+
+  * :guilabel:`Normal`: show items containing the search text
+  * :guilabel:`Wildcard(s)`: fine tune the search using the ``?`` and/or ``*``
+    characters to specify the position of the search text
+  * :guilabel:`Regular expression`
+
+* |collapseTree| :sup:`Collapse All` the whole tree;
+* |metadata| :sup:`Enable/disable properties widget`: when toggled on,
+  a new widget is added at the bottom of the panel showing, if applicable,
+  metadata for the selected item.
+
+The entries in the :guilabel:`Browser` panel are organised
+hierarchically, and there are several top level entries:
+
+#. :guilabel:`Favorites` where you can place shortcuts to often used locations
+#. :guilabel:`Spatial Bookmarks` where you can store often used map extents
+   (see :ref:`sec_bookmarks`)
+#. :guilabel:`Project Home`: for a quick access to the folder in which (most of)
+   the data related to your project are stored. The default value is the directory
+   where your project file resides.
+#. :guilabel:`Home` directory in the file system and the filesystem root directory.
+#. Connected local or network drives
+#. Then comes a number of container / database types and service protocols,
+   depending on your platform and underlying libraries:
+
+   * |geoPackage| :guilabel:`GeoPackage`
+   * |spatialite| :guilabel:`SpatiaLite`
+   * |postgis| :guilabel:`PostgreSQL`
+   * |hana| :guilabel:`SAP HANA`
+   * |mssql| :guilabel:`MS SQL Server`
+   * |oracle| :guilabel:`Oracle`
+   * |wms| :guilabel:`WMS/WMTS`
+   * |vectorTileLayer| :guilabel:`Vector Tiles`
+   * |xyz| :guilabel:`XYZ Tiles`
+   * |wcs| :guilabel:`WCS`
+   * |wfs| :guilabel:`WFS/OGC API-Features`
+   * |afs| :guilabel:`ArcGIS REST Server`
+
 In addition, the Browser panel supports drag and drop of many QGIS
 resources, such as project files, Python scripts, Processing scripts and 
 Processing models.
@@ -52,19 +109,6 @@ If you, for instance, would not like to show Python scripts in the
 browser, you can uncheck the :menuselection:`Browser --> py` entry,
 and if you want to get rid of your home folder in the browser, you
 can uncheck the :menuselection:`Browser --> special:Home` entry.
-
-A filter (|filterMap| :sup:`Filter Browser`) can be used for searching
-based on entry names (both leaf entries and node entries in the
-hierarchy).
-Using the |options| :sup:`Options` pull-down menu next to the filter
-text field, you can
-
-* toggle :guilabel:`Case Sensitive` search
-* set the :guilabel:`Filter pattern syntax` to one of
-
-  * :guilabel:`Normal`
-  * :guilabel:`Wildcard(s)`
-  * :guilabel:`Regular Expressions`
 
 The *Properties widget*, showing useful information about some
 entries / resources, can be enabled / disabled using the |metadata|
