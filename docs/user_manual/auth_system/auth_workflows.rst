@@ -180,6 +180,8 @@ editor.
    If you are pasting certificate information into the :guilabel:`PEM text`
    field, note that encrypted certificates are not supported.
 
+.. _auth_identity:
+
 Identities
 ..........
 
