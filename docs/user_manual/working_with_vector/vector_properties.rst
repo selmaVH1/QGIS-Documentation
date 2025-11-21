@@ -398,13 +398,6 @@ To use categorized symbology for a layer:
     for some complex expressions it might be simpler to use :ref:`rule-based
     rendering <rule_based_rendering>`.
 
-   .. note:: Keep in mind that some values may use widgets that
-    do not display the actual value stored in the field. For example,
-    a checkbox widget may store ``1`` and ``0`` for checked and unchecked
-    states, while displaying ``True`` and ``False`` labels. In this case,
-    to categorize features based on the checkbox state, you need to use
-    the stored values (``1`` and ``0``) in the expression.
-
 #. Configure the :ref:`Symbol <symbol-selector>`, which will be used as
    base symbol for all the classes;
 #. Indicate the :ref:`Color ramp <color-ramp>`, i.e. the range of colors from which
@@ -416,6 +409,17 @@ To use categorized symbology for a layer:
    of random colors if you are not satisfied.
 #. Then click on the :guilabel:`Classify` button to create classes from the
    distinct values of the provided field or expression.
+#. For each class, you can edit the :guilabel:`Legend` column
+   to a more meaningful label (used in the :guilabel:`Layers` panel and the print layout).
+
+   .. note:: Keep in mind that some values may use widgets that
+    do not display the actual value stored in the field.
+    For example, a checkbox widget may store ``1`` and ``0`` for checked and unchecked
+    states, while displaying ``True`` and ``False`` labels. In this case,
+    to categorize features based on the checkbox state, you need to use
+    the stored values (``1`` and ``0``) in the expression.
+    QGIS will automatically use the display value for the legend column.
+
 #. :guilabel:`Apply` the changes if the :ref:`live update <layer_styling_panel>`
    is not in use and each feature on the map canvas will be rendered with the
    symbol of its class.
@@ -1437,9 +1441,8 @@ from another layer.
    * :guilabel:`Push labels away from other labels`:
      prevents labels being placed too close to labels from a different layer.
 
-   .. attention:: Because the last three require a build based on GEOS >= 3.10,
-    they may not be available on your QGIS installation depending on the underlying
-    GEOS version in use.
+   .. attention:: The last three options are only available on QGIS installed
+      with GEOS_ >= 3.10 (see :menuselection:`Help --> About` menu).
 
 #. Fill the properties at your will; you can provide a more meaningful name to the rule.
 #. Press :guilabel:`OK`.
@@ -2190,6 +2193,7 @@ be depicted in the :ref:`3D Map view <label_3dmapview>` tool.
 
 To display a layer in 3D, select from the combobox at the top of the tab, either:
 
+* :guilabel:`Render on Terrain Surface`: enables vector layer features to be rendered as flat items on the terrain surface in 3D views.
 * :guilabel:`Single symbol`: features are rendered using a common 3D symbol
   whose properties can be :ref:`data-defined <data_defined>` or not.
   Read details on :ref:`setting a 3D symbol <3dsymbols>` for each layer geometry type.
@@ -2528,7 +2532,7 @@ They can be used to enhance the appearance of the form or to display dynamically
   and may contain the result of dynamically calculated expressions.
 * :guilabel:`Spacer Widget`: inserts an empty transparent rectangle, increasing the vertical distance between two widgets.
 
-.. _QML: https://doc.qt.io/qt-5/qtqml-syntax-basics.html
+.. _QML: https://doc.qt.io/qt-6/qtqml-syntax-basics.html
 
 .. tip:: **Display Dynamic Content**
 
@@ -2730,11 +2734,11 @@ Default values
 Policies
 ^^^^^^^^
 
-Field policies determine how values are assigned to fields during various editing operations:
+Field policies determine how values are initially assigned to fields during various editing operations:
 
-**Split and Duplicate Policies**
+**Split and Duplicate Features Policies**
 
-These policies apply when :guilabel:`Splitting features` or :guilabel:`Duplicating features`:
+These policies apply :guilabel:`When splitting features` or :guilabel:`When duplicating features`:
 
 * :guilabel:`Duplicate Values`: Keeps the existing value of the field for the new features.
 * :guilabel:`Use Default Value`: Resets the field by recalculating its :ref:`default value <default_values>`.
@@ -2743,9 +2747,9 @@ These policies apply when :guilabel:`Splitting features` or :guilabel:`Duplicati
 * :guilabel:`Use Ratio Geometries`: Recalculates the field value for all split portions
   by multiplying the existing value by ratio of the split parts lengths or areas.
 
-**Merge Policies**
+**Merge Features policies**
 
-These policies determine initial values when :guilabel:`Merging features`:
+These policies determine initial values :guilabel:`When merging features`:
 
 * :guilabel:`Remove Value`: Clears the field to an unset state (data provider may populate default value).
 * :guilabel:`Use Default Value`: Uses the default field value set in QGIS.
@@ -2757,6 +2761,32 @@ These policies determine initial values when :guilabel:`Merging features`:
   average of the source values.
 * :guilabel:`Use Largest Feature`: Uses value from feature with the largest geometry.
 * :guilabel:`Set to NULL`: Sets attribute to NULL.
+
+**Add Features policies**
+
+These policies apply :guilabel:`When adding features`:
+
+Available options are:
+
+* :guilabel:`Use Default Value`:  
+  The field value is initialized using its configured
+  :ref:`default value <default_values>`.  
+  If no default value is defined, the field starts unset.
+
+* :guilabel:`Reuse Last Entered Value`:
+  The last value will be reused. A pin button is added to toggle the behavior.
+  If set to |rememberEnabled|, the entered value will be remembered
+  and used for the next new feature.
+  If set to |rememberDisabled|, the field reverts to using the default value
+  for the next new feature.
+
+* :guilabel:`Allow Reuse of Last Entered Value`:
+  The last value can be reused, however it will not be by default.
+  A pin button is added to toggle the behavior.
+  If set to |rememberEnabled|, the entered value will be remembered
+  and used for the next new feature.
+  If set to |rememberDisabled|, the field reverts to using the default value
+  for the next new feature.
 
 .. _edit_widgets:
 
@@ -4040,6 +4070,9 @@ To do so:
 #. Pick the usual :ref:`digitizing tools <editingvector>` to fix the issue.
 
 
+.. _GEOS: https://libgeos.org/
+
+
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.
    If you need to create a new substitution manually,
@@ -4147,6 +4180,10 @@ To do so:
 .. |mergedFeatures| image:: /static/common/rendererMergedFeatures.png
    :width: 1.5em
 .. |metadata| image:: /static/common/metadata.png
+   :width: 1.5em
+.. |rememberDisabled| image:: /static/common/mIconRememberDisabled.png
+   :width: 1.5em
+.. |rememberEnabled| image:: /static/common/mIconRememberEnabled.png
    :width: 1.5em
 .. |moveLabel| image:: /static/common/mActionMoveLabel.png
    :width: 1.5em

@@ -239,8 +239,7 @@ To export a layout as PDF:
    
      * :guilabel:`Lossy (JPEG)`, which is the default compression mode
      * or :guilabel:`Lossless`, which creates bigger files in most cases, but is
-       much more suitable for printing outputs or for post-production in external
-       applications (requires Qt 5.13 or later).
+       much more suitable for printing outputs or for post-production in external applications.
    * |unchecked| :guilabel:`Create Geospatial PDF`:
      Generate a georeferenced PDF file.
    * |unchecked| :guilabel:`Disable tiled raster layer exports`: When exporting
@@ -280,6 +279,12 @@ To export a layout as PDF:
 .. note:: Exporting a print layout to formats that supports georeferencing
    (e.g. ``PDF`` and ``TIFF``) creates a georeferenced output by default.
 
+.. note::
+   When exporting maps or layouts to vector formats
+   such as PDF or SVG, line pattern fills are rendered using a line-by-line
+   vector-based approach instead of rasterized tiles. This change results in
+   smaller and higher-quality output files, with individual pattern lines
+   remaining fully editable in external vector graphics software.
 
 .. index:: Atlas generation
 

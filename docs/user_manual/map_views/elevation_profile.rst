@@ -106,9 +106,14 @@ At the top of the :guilabel:`Elevation Profile` panel, a toolbar provides you wi
      - Provides access to configuration settings of the profile elevation line.
    * -  :menuselection:`-->` |unchecked| :menuselection:`Lock distance/elevation scales`
      -
-     - Ensures that the horizontal and vertical scales are always kept equal
-       (so that e.g. a 45° slope will appear as a 45° slope in the profile view).
-   * - :menuselection:`--> Distance units`
+     - If checked, keeps the current distance and elevation scales fixed
+       when zooming or panning the plot canvas.
+       When unlocked, the ratio is automatically adjusted to fit the full extent of the current profile
+       line and elevation range (similar to “zoom full”), and will change when zooming in/out.
+   * -  :menuselection:`--> Scale Ratio`
+     -
+     - Specifies the ratio of distance to elevation units used for the profile's scale.
+   * - :menuselection:`--> Distance Units`
      -
      - Allows to render distances in the profile chart with units other than the map canvas units.
    * - :menuselection:`--> Tolerance`
@@ -116,9 +121,18 @@ At the top of the :guilabel:`Elevation Profile` panel, a toolbar provides you wi
      - Sets how far from the actual profile line a feature (vector point, line or polygon, point cloud)
        can reside to be included in the results.
        Uses the map units and is ignored by other layer or geometry types.
-       For some layer types (e.g. points, lines, polygons), a custom tolerance can be set in the layer's Elevation properties tab, 
-       which replaces the global tolerance and allows more control over feature inclusion based on distance to the profile line.
-
+       For some layer types (e.g. points, lines, polygons),
+       a custom tolerance can be set in the layer's Elevation properties tab,
+       which replaces the global tolerance and allows more control over feature inclusion
+       based on distance to the profile line.
+   * - :menuselection:`-->` |unchecked|  :guilabel:`Show Subsections Indicator`
+     -
+     - Displays vertical lines at the distance of the vertices of the profile curve,
+       highlighting the position of the vertices of the curve on the Elevation Profile.
+   * - :menuselection:`--> Subsections Symbology...`
+     -
+     - Sets the :ref:`symbology <vector_line_symbols>` (color, opacity, width, style,...)
+       of the subsections indicator lines.
    * - :menuselection:`--> Rename Profile...`
      -
      - Allows to rename the profile view.
@@ -199,15 +213,29 @@ To create a profile view, you can:
       The profile view starts rendering terrain or features of active layers
       crossing the given profile curve, as soon as they have elevation properties configured.
 
-#. Under |options| :sup:`Options` drop-down menu, you can set the :guilabel:`Tolerance` value.
-   This value is used to create a flat buffer around the elevation profile line, visible in the main map canvas.
-   Any visible feature (point, line, polygon, etc.) overlapping that buffer will be captured in the plot canvas.
+#. Under |options| :sup:`Options` drop-down menu, you can:
 
-.. note:: **Limitations with polygon extrusion**
+   * set the :guilabel:`Tolerance` value. This value is used to create a flat buffer around the elevation profile line,
+     visible in the main map canvas. Any visible feature (point, line, polygon, etc.)
+     overlapping that buffer will be captured in the plot canvas.
 
-  Geometry extrusion can be set in the |elevationscale| :guilabel:`Elevation` properties of a layer,
-  and rendered in the profile view. When tolerance is enabled, it is however not trivial to render extruded polygons,
-  thus, for now, polygon extrusion is ignored.
+     .. note:: **Limitations with polygon extrusion**
+
+      Geometry extrusion can be set in the |elevationscale| :guilabel:`Elevation` properties of a layer,
+      and rendered in the profile view. When tolerance is enabled, it is however not trivial to render extruded polygons,
+      thus, for now, polygon extrusion is ignored.
+
+   * specify the ratio of distance to elevation units that is used for the profile's scale.
+     By default, the initial scale is automatically adjusted to fit the entire profile
+     in the viewer (similar to a zoom full view).
+     Setting a scale of 10:1 means that 10 units of distance are equal to 1 unit of elevation,
+     effectively exaggerating the vertical scale.
+     To freeze the distance/elevation scale ratio, check the :guilabel:`Lock Distance/Elevation Scales` option.
+     When this option is enabled, the plot maintains the defined ratio while zooming
+     or navigating within the profile view.
+   * |checkbox| :guilabel:`Show Subsections Indicator` to display vertical lines at the position of the vertices
+     of the profile curve on the Elevation Profile, and configure their symbology.
+
 
 .. _`elevation_profile_interaction`:
 
@@ -329,6 +357,8 @@ to export an elevation profile, allowing you to reuse the plots in another softw
    :width: 1.5em
 .. |captureLine| image:: /static/common/mActionCaptureLine.png
    :width: 1.5em
+.. |checkbox| image:: /static/common/checkbox.png
+   :width: 1.3em
 .. |clearConsole| image:: /static/common/iconClearConsole.png
    :width: 1.5em
 .. |dock| image:: /static/common/dock.png

@@ -305,7 +305,6 @@ or when a layer without a CRS is loaded.
 distance: occurs when you are explicitly creating or modifying a dataset and
 select a CRS based on a datum ensemble with lower
 accuracy. The default is to ``Always show`` the warning if any inaccuracy.
-Requires a QGIS version using at least `PROJ 8.0`_.
 
 |unchecked| :guilabel:`Show CRS accuracy warning for layers in project legend`:
 If checked, any layer with a CRS with accuracy issues (i.e., a dynamic crs with
@@ -885,8 +884,8 @@ This tab helps you configure general settings when :ref:`editing vector layer
 * :guilabel:`Validate geometries`. Editing complex lines and polygons with many
   nodes can result in very slow rendering. This is because the default
   validation procedures in QGIS can take a lot of time. To speed up rendering, it
-  is possible to select GEOS geometry validation (starting from GEOS 3.3) or to
-  switch it off. GEOS geometry validation is much faster, but the disadvantage
+  is possible to select GEOS geometry validation or to switch it off.
+  GEOS geometry validation is much faster, but the disadvantage
   is that only the first geometry problem will be reported.
 
   Note that depending on the selection, reports of geometry errors may differ
@@ -1235,8 +1234,7 @@ Excluding some URLs can be added to the text box below the proxy settings (see
 the string listed in this text box.
 
 If you need more detailed information about the different proxy settings,
-please refer to the manual of the underlying QT library documentation at
-https://doc.qt.io/archives/qt-5.9/qnetworkproxy.html#ProxyType-enum
+please refer to the manual of the underlying QT library documentation at `ProxyType-enum`_.
 
 .. tip:: **Using Proxies**
 
@@ -1912,6 +1910,8 @@ the project map canvas. You can:
   yet the actual area of interest for the project is a smaller geographic area.
   The project full extent coordinates can be set with the :ref:`extent selector
   <extent_selector>` widget.
+  If you want to save the full extent so that the project always opens with it,
+  check |unchecked|:guilabel:`Use as extent for the main canvas when opening the project`.
 
 CRS Properties
 --------------
@@ -2856,7 +2856,7 @@ in the QGIS user profile.
 * Project templates must be deployed in the :file:`project_templates` directory.
 * Custom Python macros must be deployed in the :file:`python` directory.
 
-.. _`PROJ 8.0`: https://proj.org/en/8.0/
+.. _`ProxyType-enum`: https://doc.qt.io/qt-6/qnetworkproxy.html#ProxyType-enum
 .. _Qt: https://doc.qt.io/qt-6.8/
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE

@@ -344,10 +344,10 @@ To create a bookmark:
 
 #. Zoom and pan to the area of interest.
 #. Select the menu option :menuselection:`View -->` |newBookmark|
-   :menuselection:`New Spatial Bookmark...`,
-   press :kbd:`Ctrl+B` or right-click the |showBookmarks| :guilabel:`Spatial
-   Bookmarks` entry in
-   the :guilabel:`Browser` panel and select :guilabel:`New Spatial Bookmark`.
+   :menuselection:`New Spatial Bookmark...`, press :kbd:`Ctrl+B`
+   or right-click the |showBookmarks| :guilabel:`Spatial Bookmarks`
+   entry in the :guilabel:`Browser` panel
+   and select :guilabel:`New Spatial Bookmark`.
    The :guilabel:`Bookmark Editor` dialog opens.
 
    .. _figure_create_bookmarks:
@@ -374,15 +374,13 @@ Working with Bookmarks
 ----------------------
 
 To use and manage bookmarks, you can either use the :guilabel:`Spatial Bookmarks`
-panel or :guilabel:`Browser`.
+panel or :guilabel:`Browser`:
 
-Select :menuselection:`View -->` |showBookmarks| :menuselection:`Show Spatial
-Bookmark Manager` or press :kbd:`Ctrl+7`
-to open the :guilabel:`Spatial Bookmarks Manager` panel.
-Select :menuselection:`View -->` |showBookmarks| :menuselection:`Show Bookmarks`
-or :kbd:`Ctrl+Shift+B` to show
-the |showBookmarks| :guilabel:`Spatial Bookmarks` entry in the
-:guilabel:`Browser` panel.
+* Select :menuselection:`View -->` |showBookmarks| :menuselection:`Show Spatial
+  Bookmark Manager` or press :kbd:`Ctrl+7` to open the :guilabel:`Spatial Bookmark Manager` panel.
+* Select :menuselection:`View -->` |showBookmarks| :menuselection:`Show Spatial Bookmarks`
+  or press :kbd:`Ctrl+Shift+B` to show the |showBookmarks| :guilabel:`Spatial Bookmarks` entry
+  in the :guilabel:`Browser` panel.
 
 You can perform the following tasks:
 
@@ -772,36 +770,34 @@ with both families of annotations.
 
 .. table:: The Annotations Toolbar actions
 
- +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
- | Tool                                                | Usage                                                               | Scope               |
- +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
- | |createAnnotationLayer| :sup:`New Annotation Layer` | Create a new layer to store annotations                             | Feature annotations |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | :sup:`Main Annotation Layer Properties`             | Control settings of the Main Annotation Layer                       |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |select| :sup:`Modify Annotations`                  | Select, move, resize and modify symbology properties of annotations |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |addPolygon| :sup:`Create Polygon Annotation`       | Create an annotation as a polygon feature                           |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |addPolyline| :sup:`Create Line Annotation`         | Create an annotation as a polyline feature                          |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |addMarker| :sup:`Create Marker Annotation`         | Create an annotation as a point feature                             |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |actionText| :sup:`Create Text Annotation at Point` | Create an annotation as a text label                                |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |textAlongLine| :sup:`Create Text Annotation along  | Create an annotation as a curved text along a line feature          |                     |
- | Line`                                               |                                                                     |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |textInsideRect| :sup:`Create Text Annotation In    | Create a text formatted annotation bound within a rectangle         |                     |
- | Rectangle`                                          |                                                                     |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |addImage| :sup:`Create Picture Annotation`         | Create an annotation showing an :file:`.SVG` or raster image        |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
- | |htmlAnnotation| :sup:`HTML Annotation`             | Select and create annotation with an :file:`HTML` file's content    | Balloon annotations |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |formAnnotation| :sup:`Form Annotation`             | Select and create annotation showing attributes of a vector layer   |                     |
- |                                                     | in a custom form file                                               |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
+ +--------------------------------------------------------------+---------------------------------------------------------------------+------------------------+
+ | Tool                                                         | Usage                                                               | Scope                  |
+ +==============================================================+=====================================================================+========================+
+ | |createAnnotationLayer| :sup:`New Annotation Layer`          | Create a new layer to store annotations                             | :ref:`Feature          |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+ annotations            +
+ | :sup:`Main Annotation Layer Properties`                      | Control settings of the Main Annotation Layer                       | <annotation_layer>`    |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |select| :sup:`Modify Annotations`                           | Select, move, resize and modify symbology properties of annotations |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |addPolygon| :sup:`Create Polygon Annotation`                | Create an annotation as a polygon feature                           |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |addPolyline| :sup:`Create Line Annotation`                  | Create an annotation as a polyline feature                          |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |addMarker| :sup:`Create Marker Annotation`                  | Create an annotation as a point feature                             |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |actionText| :sup:`Create Text Annotation at Point`          | Create an annotation as a text label anchored at a point            |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |textAlongLine| :sup:`Create Text Annotation along Line`     | Create an annotation as a curved text along a line feature          |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |textInsideRect| :sup:`Create Text Annotation in Rectangle`  | Create an annotation as a text label in a rectangular text box      |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+                        +
+ | |addImage| :sup:`Create Picture Annotation`                  | Create an annotation representing an :file:`.SVG` or raster image   |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+------------------------+
+ | |htmlAnnotation| :sup:`HTML Annotation`                      | Select and create annotation with a :file:`HTML` formatted text     | :ref:`Balloon          |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+ annotations            +
+ | |formAnnotation| :sup:`Form Annotation`                      | Select and create annotation showing attributes of a vector layer   | <balloon_annotations>` |
+ |                                                              | in a custom form file                                               |                        |
+ +--------------------------------------------------------------+---------------------------------------------------------------------+------------------------+
 
 .. note::
 
@@ -881,6 +877,22 @@ The properties dialog of an annotation layer provides the following tabs:
 
   Some of these options are accessible from the feature annotation
   :guilabel:`Symbology` properties.
+
+.. _annotationslayer_3dview:
+
+* :guilabel:`3D View`: allows users to control the appearance of annotation layers in
+  3D map views.
+
+  * :guilabel:`Render on Terrain Surface`: enables annotations to be rendered as flat items on the terrain surface in 3D views.
+  * :guilabel:`3D Billboards`: allows annotations to be rendered as 3D objects in 3D views.
+    Billboards always face the camera in 3D views, improving readability during navigation
+    (only for marker and text annotations).
+    
+    * :guilabel:`Relative to Terrain`: billboard elevation is relative to the terrain height.
+    * :guilabel:`Absolute`: all billboard will be placed at the same elevation.
+    * :guilabel:`Offset`: allows you to set a vertical offset for the billboards in 3D views.
+    * :guilabel:`Font`: allows you to set the font properties for text annotations in 3D views.
+    * |checkbox| :guilabel:`Show callout lines`: when enabled, callout lines are drawn from the annotation to its anchor point on the terrain.
 
 Interacting with features
 .........................
@@ -1022,35 +1034,32 @@ Balloon annotations
 You can add balloon annotations through :menuselection:`Edit --> Add Annotation -->`
 menu or from the :guilabel:`Annotations Toolbar`:
 
-* |htmlAnnotation| :sup:`HTML Annotation` to place the content of an :file:`html` file
+* |htmlAnnotation| :sup:`HTML Annotation` to display a HTML-formatted string
+  or a whole :file:`HTML` file as an annotation.
 * |formAnnotation| :sup:`Form Annotation`: useful to display attributes
   of a vector layer in a customized :file:`ui` file (see :numref:`figure_custom_annotation`).
   This is similar to the :ref:`custom attribute forms <provide_ui_file>`,
   but displayed in an annotation item.
-  Also watch `this video <https://www.youtube.com/watch?v=0pDBuSbQ02o&feature=youtu.be&t=2m25s>`
-  from Tim Sutton for more information.
-
-  .. raw:: html
-
-    <p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/0pDBuSbQ02o?start=145" title="Working with balloon annotations" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 .. _figure_custom_annotation:
 
 .. figure:: img/custom_annotation.png
    :align: center
 
-   Examples of balloon annotations
+   Example of a HTML balloon annotation
 
 
 To add a balloon annotation, select the corresponding tool and click on the map canvas.
-An empty balloon is added. Double-click on it and a dialog opens with various
-options. This dialog is almost the same for all the annotation types:
+An empty balloon is added. Double-click on it and a dialog opens with various options.
+This dialog is almost the same for all the annotation types:
 
-* At the top, a file selector to fill with the path to an :file:`html` or :file:`ui` file
-  depending on the type of annotation.
+* :guilabel:`File`: Fill it with the path to a :file:`.html` or :file:`.ui` file,
+  depending on the type of annotation, to serve as contents of the annotation.
+* :guilabel:`Source`: Only available for HTML annotations, it allows to serve
+  the annotation with a plain or HTML-formatted text instead of a file.
 * |checkbox| :guilabel:`Fixed map position`: when unchecked, the balloon placement
   is based on a screen position (instead of the map), meaning that it's always shown
-  regardless the map canvas extent.
+  regardless of the map canvas extent.
 * :guilabel:`Linked layer`: associates the annotation with a map layer, making it
   visible only when that layer is visible.
 * :guilabel:`Map marker`: using :ref:`QGIS symbols <symbol-selector>`,
@@ -1060,13 +1069,6 @@ options. This dialog is almost the same for all the annotation types:
   stroke color or width of the balloon using QGIS symbols.
 * :guilabel:`Contents margins`: sets interior margins of the annotation frame.
 * |checkbox| :guilabel:`Live update` allows you to live preview your changes.
-
-.. _figure_annotation:
-
-.. figure:: img/annotation.png
-   :align: center
-
-   A ballon annotation text dialog
 
 When a balloon annotation tool is active, you can also:
 

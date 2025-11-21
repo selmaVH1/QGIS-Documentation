@@ -1085,6 +1085,7 @@ From bottom to top:
   and the formatting of the results; it can be set as:
 
   * **Tree**: this is the default view, and returns the results in a tree-structure
+    where the first item is the name of the layer and its children are its identified element(s).
   * **Table**: available only for raster-based layers, it allows to display the results
     as a table whose columns are ``Layer``, ``FID``, ``Attribute`` and ``Value``
   * or **Graph**: available only for raster-based layers
@@ -1109,10 +1110,23 @@ From bottom to top:
     to identify features from.
     If only a single feature is under the mouse, then the results are automatically displayed.
 
-* In the upper part of the :guilabel:`Identify Results` dialog,
-  a frame shows the :ref:`information <identified_information>` returned by features
-  as a table, a graph or a tree, depending on the :ref:`selected view <identify_view>`.
-  When in a tree view, you have a handful of tools above the results:
+* In the upper part, the information widget: when you identify a data in the map canvas,
+  this is the place where the :guilabel:`Identify Results` dialog will list details
+  about the clicked (or hovered over, depending on the tool in use) items.
+  Their formatting relies on the :ref:`selected view <identify_view>`.
+
+  The information displayed by the identify tool will depend on the type
+  of layer you have selected, whether it is:
+
+  * a :ref:`vector layer <identify_features_vector>` (including vector tiles
+    or point cloud data),
+  * a :ref:`raster layer <raster_identify>`,
+  * a :ref:`mesh layer <exploring_mesh>`.
+
+.. _identify_toolbar:
+
+* When in a tree view, the upper part also displays a handful of tools
+  above the results:
 
   * |formView| :sup:`Open Form` of the current feature
   * |expandTree| :sup:`Expand tree`
@@ -1133,6 +1147,7 @@ From bottom to top:
     * |unchecked| :guilabel:`Hide derived attributes from results`
       to only show fields actually defined in the layer
     * |unchecked| :guilabel:`Hide NULL values from results`
+    * |unchecked| :guilabel:`Show Relations` to show relations in the vector layer :ref:`Identify results tree <identify_features_vector>`
 
   * |helpContents|:sup:`Help` to access the current documentation
 
@@ -1192,96 +1207,40 @@ may greatly improve identification operations:
    This is a handy way to return features from only layers that are of interest to you.
 
 
-.. _`identified_information`:
-
-Feature information
-...................
-
-When you identify a data in the map canvas, the :guilabel:`Identify Results` dialog will list
-information about the items clicked (or hovered over, depending on the tool in use).
-The default view is a tree view in which the first item is the name of the layer
-and its children are its identified feature(s).
-Each feature is described by the name of a field along with its value.
-This field is the one set in :menuselection:`Layer Properties --> Display`.
-All the other information about the feature follows.
-
-The feature information displayed by the identify tool will depend on the type 
-of layer you have selected, whether it is a vector layer (including vector tiles 
-or point cloud data) or raster layer. If your layer is raster, clicking on a location
-on the map canvas with identify tool will highlight the identified raster pixel. 
-The Identify Results dialog can be customized to display custom fields, but by
-default it will display the following information:
-
-.. index:: Actions
-
-* The feature :ref:`display name <maptips>`;
-* **Actions**: Actions can be added to the identify feature windows.
-  The action is run by clicking on the action label. By default, only one action
-  is added, namely ``View feature form`` for editing. You can define more actions
-  in the layer's properties dialog (see :ref:`actions_menu`).
-* **Derived**: This information is calculated or derived from other information.
-  It includes:
-
-  * general information about the feature's geometry:
-
-    * depending on the geometry type, the cartesian measurements of length,
-      perimeter or area in the layer's CRS units.
-      For 3D line vectors the cartesian line length is available.
-    * depending on the geometry type and if an ellipsoid is set in the project
-      properties dialog for :guilabel:`Measurements`, the ellipsoidal values of
-      length, perimeter or area using the specified units
-    * the count of geometry parts in the feature and the number of the part
-      clicked
-    * the count of vertices in the feature
-  * coordinate information, using the project properties :guilabel:`Coordinates
-    display` settings:
-
-    * ``X`` and ``Y`` coordinate values of the point clicked
-    * the number of the closest vertex to the point clicked
-    * ``X`` and ``Y`` coordinate values of the
-      closest vertex (and ``Z``/``M`` if applicable)
-    * if you click on a curved segment,
-      the radius of that section is also displayed.
-    * if both the vector layer and the project have vertical datums set and they differ,
-      the ``Z`` value will be displayed for both datums.
-
-* **Data attributes**: This is the list of attribute fields and values for the
-  feature that has been clicked.
-* information about the related child feature if you defined a :ref:`relation <vector_relations>`:
-
-  * the name of the relation
-  * the entry in reference field, e.g. the name of the related child feature
-  * **Actions**: lists actions defined in the layer's properties dialog (see :ref:`actions_menu`)
-    and the default action is ``View feature form``.
-  * **Data attributes**: This is the list of attributes fields and values of the
-    related child feature.
-
-.. note:: Links in the feature's attributes are clickable from the :guilabel:`Identify
-   Results` panel and will open in your default web browser.
-
-
 Results contextual menu
 .......................
 
 Other functions can be found in the context menu of the identified item.
-For example, from the context menu you can:
+For example, depending on the layer type, you can:
 
-* View the feature form
-* Zoom to feature
-* Copy feature: Copy all feature geometry and attributes
-* Toggle feature selection: Add identified feature to selection
-* Copy attribute value: Copy only the value of the attribute that you click on
-* Copy feature attributes: Copy the attributes of the feature
-* Select features by attribute value: Select all features in the layer
-  that match the selected attribute
-* Clear result: Remove results in the window
-* Clear highlights: Remove features highlighted on the map
-* Highlight all
-* Highlight layer
-* Activate layer: Choose a layer to be activated
-* Layer properties: Open layer properties window
-* Expand all
-* Collapse all
+* interact with the individual identified item:
+
+  * :guilabel:`View feature form` or :guilabel:`Edit feature form`, for vector layers
+  * :guilabel:`Zoom to feature`: Zooms the map canvas to the extent
+    of the identified feature or pixel
+  * :guilabel:`Identify feature`: Restarts and recenters the search results on
+    a :ref:`referenced or referencing vector feature <vector_relations>` of the identified feature.
+    Only available if |checkbox| :guilabel:`Show Relations` is checked in Identify Settings.
+  * :guilabel:`Copy feature`: Copies the vector geometry and attributes, or the pixel geometry
+  * :guilabel:`Toggle feature selection`: Adds or removes identified feature to/from the selection
+  * :guilabel:`Copy attribute value`: Copies the value in the :guilabel:`Value` column
+    of the tree item you click on
+  * :guilabel:`Copy feature attributes`: Copies the attribute names and values of the identified item
+  * :guilabel:`Select features by attribute value`: Selects all vector features in the layer
+    that match the selected attribute value
+
+* control the rendering of the layers, the results panel or the map canvas:
+
+  * :guilabel:`Clear result`: Removes results in the window
+  * :guilabel:`Clear highlights`: Removes items highlighted on the map
+  * :guilabel:`Highlight all`: Highlights in the map canvas all the items identified
+    in the results dialog, regardless of their layer
+  * :guilabel:`Highlight layer`: Highlights in the map canvas all the items identified
+    in the layer of the selected entry
+  * :guilabel:`Activate layer`: Selects the layer of the identified item
+    in the :guilabel:`Layers` panel
+  * :guilabel:`Layer properties`: Opens the layer properties window of the identified item
+  * :guilabel:`Expand all` or :guilabel:`Collapse all` the results tree
 
 
 .. index:: Save properties, Save style, QML, SLD
@@ -1698,19 +1657,7 @@ variables overwritten by lower level ones are strike through.
    .net/2015/12/exploring-variables-in-qgis-pt-3-layer-level-variables/>`_
    blog posts.
 
-.. _authentication:
 
-Authentication
-==============
-
-QGIS has the facility to store/retrieve authentication credentials in a secure
-manner. Users can securely save credentials into authentication configurations,
-which are stored in a portable database, can be applied to server or database
-connections, and are safely referenced by their ID tokens in project or settings
-files. For more information see :ref:`authentication_index`.
-
-A master password needs to be set up when initializing the authentication
-system and its portable database.
 
 
 .. _common_widgets:
@@ -2276,35 +2223,91 @@ Using the data-defined assistant interface
 ..........................................
 
 When the |dataDefine| :sup:`Data-defined override` button is associated with a
-size, a rotation, an opacity or a color property, it has an :guilabel:`Assistant...`
-option that helps you change how the data is applied to the parameter for each
-feature. The assistant allows you to:
+size, a width, a rotation, an opacity or a color property, it has an :guilabel:`Assistant...`
+option that helps you change how the data is applied to the parameter for each feature.
+Basically, QGIS will scale a range of input values over a range of output values,
+and render each feature with their corresponding ouput value.
 
-* Define the :guilabel:`Input` data, ie:
+The assistant allows you to:
+
+* Define the :guilabel:`Input` data, i.e.:
 
   * :guilabel:`Source`: the attribute to represent, using a field or an |expression|
     :ref:`expression <vector_expressions>`
-  * the range of values to represent: you can manually enter the values or use
-    the |refresh| :sup:`Fetch value range from layer` button to fill
-    these fields automatically with the minimum and maximum values returned by
-    the :guilabel:`Source` expression applied to your data
-* |unchecked| :guilabel:`Apply transform curve`: by default, output values (see
-  below for setting) are applied to input features following a linear scale.
+  * the range of values to represent: you can manually enter the values
+    or use the |refresh| :sup:`Fetch value range from layer` button
+    to fill these fields automatically with the minimum and maximum values returned
+    by the :guilabel:`Source` expression applied to your data.
+    Features whose values are out of the given range will be represented
+    with the property of the closest limit of the output range.
+* |unchecked| :guilabel:`Apply transform curve`: by default, output values
+  are applied to input features following a specific scaling method (see below for setting).
   You can override this logic: enable the transform option, click on the
-  graphic to add break point(s) and drag the point(s) to apply a custom
-  distribution.
-* Define the :guilabel:`Output` values: the options vary according to the
-  parameter to define. You can globally set:
+  graphic to add break point(s) and drag the point(s) to apply a custom distribution.
+* Define the :guilabel:`Output` values: the options vary according to the parameter to define.
+  You can globally set:
 
-  * for a color setting, the :ref:`color ramp <color-ramp>` to apply to values
-    and the single color to use for NULL values
-  * for the others, the minimum and maximum values to apply to the selected
-    property as well as the size/angle/opacity value for ignored or NULL source
-    features
-  * for size properties, the :guilabel:`Scale method` of representation which can
-    be **Flannery**, **Exponential**, **Surface**, **Radius** or **Linear**
-  * the :guilabel:`Exponent` to use for data scaling when the :guilabel:`Scale
-    method` is of exponential type or when tweaking the opacity
+  * for color: a linear interpolation of source values is done
+    over a given :ref:`color ramp <color-ramp>` in order to assign each symbol the correct color.
+    A color to use for symbols with NULL values can also be given.
+  * for rotation: a linear interpolation is done over a range of minimum and maximum angles
+    in order to assign each symbol the correct rotation.
+    An angle to use for symbols with NULL values can also be given.
+  * for opacity: a polynomial interpolation is done over a range of minimum and maximum opacity values.
+    The :guilabel:`Exponent` field dictates the way source values are mapped to the output range.
+    Power values greater than ``1`` will cause the output values distribution to start slowly
+    before accelerating as the source values approach their maximum.
+    Smaller exponents (less than ``1``) will do the opposite.
+    An opacity value to use for symbols with NULL values can also be given.
+  * for width (line symbols): an interpolation is done over a range of minimum and maximum values
+    in order to assign each symbol the correct width.
+    The :guilabel:`Scale method` field controls how the interpolation is done
+    and what the output value represents.
+
+    * **Linear**: linearly interpolates the width of the symbol between the :guilabel:`Size from`
+      and the :guilabel:`Size to` when the :guilabel:`Source` expression value varies
+      from :guilabel:`value from` to :guilabel:`value to`.
+      Symbols width are proportional.
+    * **Exponential**: Also interpolates the width, but allows to control the exact power
+      used for scaling through the :guilabel:`Exponent` field.
+      Power values greater than ``1`` will cause the output values distribution to start slowly
+      before accelerating as the source values approach their maximum.
+      Smaller exponents (less than ``1``) will do the opposite.
+
+    The width to use for symbols with NULL values can also be given.
+  * for size (point symbols): an interpolation is done over a range of minimum and maximum values
+    in order to assign each symbol the correct size "diameter".
+    The :guilabel:`Scale method` field controls how the interpolation is done
+    and what the output value represents.
+
+    * **Radius**: linearly interpolates the diameter of the symbol between the :guilabel:`Size from`
+      and the :guilabel:`Size to` when the :guilabel:`Source` expression value varies
+      from :guilabel:`value from` to :guilabel:`value to`.
+      Symbols diameter are proportional.
+    * **Surface**: scales the symbol diameter according to the square root (power of ``0.5``)
+      of the :guilabel:`Source` expression value to linearly interpolate the area of the symbol
+      between the :guilabel:`Size from` and the :guilabel:`Size to` when the :guilabel:`Source`
+      expression value varies from :guilabel:`value from` to :guilabel:`value to`.
+      Symbols area are proportional.
+      This method reflects human perception of size variation better than the **radius** one.
+    * **Flannery**: Applies a compensation factor (power of ``0.57``) to the area interpolation,
+      in order to mitigate the eyes' perceptual underestimation of proportional areas.
+      Maybe relevant only for circular symbols.
+    * **Exponential**: Also interpolates the area, but allows to control the exact power
+      used for scaling through the :guilabel:`Exponent` field.
+      Power values greater than ``1`` will cause the output values distribution to start slowly
+      before accelerating as the source values approach their maximum.
+      Smaller exponents (less than ``1``) will do the opposite.
+
+    The size to use for symbols with NULL values can also be given.
+
+    .. _figure_symbology_scale_methods:
+
+    .. figure:: img/scale_methods.png
+       :align: center
+
+       Scaling values using different methods (from left to right): Radius - Surface - Flannery - Exponential of 2
+
 
 When compatible with the property, a live-update preview is displayed in the
 right-hand side of the dialog to help you control the value scaling.
@@ -2317,11 +2320,85 @@ right-hand side of the dialog to help you control the value scaling.
    Scaling feature size based on passengers field's value
 
 The values presented in the varying size assistant above will set the size
-'Data-defined override' with:
+'Data-defined override' with the editable formula below:
 
 ::
 
- coalesce(scale_exp("passengers", 9, 2000, 1, 10, 0.57), 0)
+ coalesce(scale_polynomial("passengers", 9, 2000, 1, 10, 0.57), 0)
+
+
+.. index:: Authentication
+.. _authentication:
+
+Authentication
+--------------
+
+Many data providers in QGIS (such as databases, web services or file-based
+services) require credentials in order to connect. The authentication widget
+in QGIS helps users supply these credentials securely, and it offers two ways
+to do so:
+
+* entering basic credentials directly,
+* or selecting an existing authentication configuration stored in the encrypted authentication database.
+
+.. figure:: img/authentication_widget.png
+   :align: center
+   :width: 400px
+
+   Authentication widget
+
+Basic
+............
+
+When setting authentication credentials, the :guilabel:`Basic` tab
+allows you to set:
+
+* :guilabel:`User name`: User name used to connect to the data source.
+* :guilabel:`Password`: Password used to connect to the data source.
+
+:guilabel:`Convert to configuration` will save the user name and password in a new
+authentication configuration.
+
+You can save any or both of the ``User name`` and ``Password`` parameters, in
+which case they will be used by default each time you need to connect to this
+database or service. If not saved, you'll be prompted to supply the credentials to
+connect to the database or service in next QGIS sessions. 
+You can cancel the prompt, in which case the connection will fail.
+Click the :guilabel:`Ignore for session` button to avoid being prompted again during
+the current QGIS session. It is also possible to :guilabel:`Ignore for 10 seconds`. This will
+cancel the prompt but you need to wait 10 seconds before you can attempt to connect again.
+The connection parameters you entered are stored in a temporary internal cache and returned
+whenever a username/password for the same database or service is requested, until you
+end the current QGIS session.
+
+ .. warning:: **QGIS User Settings and Security**
+
+   In the :guilabel:`Authentication` tab, saving **username** and **password**
+   will keep unprotected credentials in the connection configuration. Those
+   **credentials will be visible** if, for instance, you share the project file
+   with someone. Therefore, it is advisable to save your credentials in an
+   *Authentication configuration* instead (:guilabel:`Configurations` tab -
+   See :ref:`authentication_index` for more details) or in a service connection
+   file (see :ref:`PostgreSQL Service connection file <pg-service-file>` for example).
+
+
+Configurations
+...............
+
+QGIS can store credentials under :ref:`authentication configurations <authentication_methods>`.
+Each configuration safely saves your login details in a portable encrypted database,
+so you can use them again without typing them every time.
+These configurations can be safely referenced by their ID tokens in projects and settings.
+
+The authentication configuration selector allows users to choose from existing
+authentication configurations or create new ones. It provides options to:
+
+* Select an existing authentication configuration from a drop-down list.
+* |symbologyAdd| :sup:`Create a new authentication configuration`
+* |symbologyRemove| :sup:`Delete selected configuration`
+* |projectProperties| :sup:`Edit selected configuration`
+
+For more information on the authentication system, see :ref:`authentication_index`.
 
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
@@ -2478,6 +2555,8 @@ The values presented in the varying size assistant above will set the size
    :width: 1em
 .. |osx| image:: /static/common/osx.png
    :width: 1em
+.. |projectProperties| image:: /static/common/mActionProjectProperties.png
+   :width: 1.5em
 .. |qt| image:: /static/common/mIconQt.png
    :width: 1.5em
 .. |rasterHistogram| image:: /static/common/rasterHistogram.png

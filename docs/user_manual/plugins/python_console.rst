@@ -73,9 +73,10 @@ The Console input area main features are:
 
   * Python
   * PyQGIS
-  * PyQt5
+  * PyQt6
   * QScintilla2
   * osgeo-gdal-ogr
+  * osgeo-geos
 
 * :kbd:`Ctrl+Alt+Space` to view the auto-completion list if enabled in the
   :ref:`console_options`;
@@ -116,7 +117,7 @@ The Console input area main features are:
       QGIS Rocks
 
       >>> !gdalinfo --version
-      GDAL 3.6.2, released 2023/01/02
+      GDAL 3.10.3, released 2025/04/01
 
       >>> !pip install black
       # Install black python formatter using pip (if available)
@@ -171,7 +172,7 @@ All available tools are described in the following table.
   +-------------------------------------------------------+--------------------------------------------------------------------------------------+---------------------------+
   | Tool name                                             | Function                                                                             | Location                  |
   +=======================================================+======================================================================================+===========================+
-  | |scriptOpen| :guilabel:`Open script…`                 | Loads a Python file in the code editor dialog, as a new tab                          | Toolbar                   |
+  | |scriptOpen| :guilabel:`Open script…` (:kbd:`Ctrl+O`) | Loads a Python file in the code editor dialog, as a new tab                          | Toolbar                   |
   +-------------------------------------------------------+--------------------------------------------------------------------------------------+                           |
   | |showEditorConsole|                                   | Opens a saved Python script in the default external program                          |                           |
   | :guilabel:`Open in external editor…`                  | set for Python file editing                                                          |                           |
@@ -183,11 +184,9 @@ All available tools are described in the following table.
   +-------------------------------------------------------+--------------------------------------------------------------------------------------+---------------------------+
   | |start| :guilabel:`Run script` (:kbd:`Ctrl+Shift+E`)  | Executes the whole script in the Interactive console                                 | Toolbar & Contextual menu |
   |                                                       | (this creates a byte-compiled file with the extension :file:`.pyc`)                  |                           |
-  +-------------------------------------------------------+--------------------------------------------------------------------------------------+---------------------------+
-  | |helpContents| :guilabel:`Context help` (:kbd:`F1`)   | Attempts to display help on the selected string (class, method, object,...)          | Contextual menu           |
-  |                                                       | in its corresponding API documentation                                               |                           |
-  +-------------------------------------------------------+--------------------------------------------------------------------------------------+---------------------------+
-  | |runConsole| :guilabel:`Run selected` (:kbd:`Ctrl+E`) | Executes in the Interactive console the lines selected in the script                 | Toolbar & Contextual menu |
+  +-------------------------------------------------------+--------------------------------------------------------------------------------------+                           |
+  | |runSelected| :guilabel:`Run selection`               | Executes in the Interactive console the lines selected in the script                 |                           |
+  | (:kbd:`Ctrl+E`)                                       |                                                                                      |                           |
   +-------------------------------------------------------+--------------------------------------------------------------------------------------+                           |
   | |editCut| :guilabel:`Cut` (:kbd:`Ctrl+X`)             | Cuts selected text to the clipboard                                                  |                           |
   +-------------------------------------------------------+--------------------------------------------------------------------------------------+                           |
@@ -285,7 +284,7 @@ All available tools are described in the following table.
    :width: 1.5em
 .. |replace| image:: /static/common/mActionReplace.png
    :width: 1.5em
-.. |runConsole| image:: /static/common/iconRunConsole.png
+.. |runSelected| image:: /static/common/mActionRunSelected.png
    :width: 1.5em
 .. |scriptOpen| image:: /static/common/mActionScriptOpen.png
    :width: 1.5em
