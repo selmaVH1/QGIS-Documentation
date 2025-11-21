@@ -416,8 +416,8 @@ of each polygon, preserving main topology while ignoring small variations.
 Z values are ignored; the medial axis is calculated from the 2D projection
 of input geometries.
 
-.. attention:: This algorithm is not available by default in QGIS. It requires `SFCGAL <https://sfcgal.gitlab.io/SFCGAL/>`_ 
-  library to be installed.
+.. attention:: Running this algorithm requires QGIS installed with SFCGAL_ >= 2.0
+   (see :menuselection:`Help --> About` menu).
 
 Parameters
 ..........
@@ -937,8 +937,8 @@ additional information (number of errors found and types of error):
 
 **Default menu**: :menuselection:`Vector --> Geometry Tools`
 
-.. seealso:: :ref:`qgisfixgeometries` and the core plugin
-   :ref:`geometry_checker`, :ref:`qgiscoveragevalidate`
+.. seealso:: :ref:`checkgeometry_algorithms`, :ref:`qgisfixgeometries`,
+   :ref:`qgiscoveragevalidate`
 
 Parameters
 ..........
@@ -1781,6 +1781,8 @@ are smaller than a specified area threshold. Leaving this parameter at
 |checkbox| Allows
 :ref:`features in-place modification <processing_inplace_edit>`
 of polygon features
+
+.. seealso:: qgisfixgeometryhole
 
 Parameters
 ..........
@@ -2868,11 +2870,11 @@ Outputs
        the input layer geometries.
        Other than the input attributes, the output layer also contains the following fields:
        
-       - ``vertex_index``: the index of the vertex within its part. The first vertex is indexed as 0.
+       - ``vertex_index``: the index of the vertex within the geometry. The first vertex is indexed as 0.
        - ``vertex_part``: the part number of the geometry that the vertex belongs to. For single-part geometries, this is always 0.
          For multi-part geometries (e.g. MultiPolygon or MultiLine), this indicates which part the vertex comes from.
        - ``vertex_part_ring``: for polygon geometries, this indicates whether the vertex belongs to the outer ring (0) or one of the inner rings (1, 2, ...).
-       - ``vertex_part_index``: is the index of a vertex in a specific ring.
+       - ``vertex_part_index``: the index of the vertex in its specific ring (outer or inner).
        - ``distance``: the distance from the previous vertex.
        - ``angle``: returns approximate angle at a vertex. 
          Usually the average angle between adjacent segments,
@@ -3204,7 +3206,7 @@ of point, line, and polygon features without M enabled
 
 .. warning:: M values will be dropped from the output.
 
-.. seealso:: :ref:`qgischeckvalidity`
+.. seealso:: :ref:`qgischeckvalidity`, :ref:`fixgeometry_algorithms`
 
 Parameters
 ..........
@@ -3233,8 +3235,10 @@ Parameters
        * 1 --- ``Structure``: first makes all rings valid and then merges shells
          and subtracts holes from shells to generate valid result.
          Assumes that holes and shells are correctly categorized.
-         Requires QGIS version built with GEOS 3.10 or later
-         (check :menuselection:`Help --> About` menu).
+
+         .. attention:: Using this method requires QGIS installed with GEOS_ >= 3.10
+          (see :menuselection:`Help --> About` menu).
+
    * - **Fixed geometries**
      - ``OUTPUT``
      - [same as input]
@@ -5125,7 +5129,8 @@ features.
 :ref:`features in-place modification <processing_inplace_edit>`
 of point, line, and polygon features
 
-.. seealso:: :ref:`qgisaggregate`, :ref:`qgiscollect`
+.. seealso:: :ref:`qgisaggregate`, :ref:`qgiscollect`,
+  :ref:`qgisfixgeometrymultipart`
 
 Parameters
 ..........
@@ -5309,7 +5314,8 @@ of point, line, and polygon features
 
 .. seealso:: :ref:`qgisextractvertices`,
    :ref:`qgisextractspecificvertices`,
-   :ref:`qgisdeleteduplicategeometries`
+   :ref:`qgisdeleteduplicategeometries`,
+   :ref:`qgisfixgeometryduplicatenodes`
 
 Parameters
 ..........
@@ -7628,6 +7634,10 @@ Python code
 .. include:: ../algs_include.rst
   :start-after: **algorithm_code_section**
   :end-before: **end_algorithm_code_section**
+
+
+.. _GEOS: https://libgeos.org/
+.. _SFCGAL: https://sfcgal.gitlab.io/SFCGAL/
 
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE

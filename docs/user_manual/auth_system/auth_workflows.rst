@@ -91,6 +91,8 @@ accustomed to the workflow.
    dialog :guilabel:`OK` button for any changes to be saved. This is unlike other
    settings in the Options dialog.
 
+.. _authentication_authorities:
+
 Authorities
 ...........
 
@@ -180,7 +182,7 @@ editor.
    If you are pasting certificate information into the :guilabel:`PEM text`
    field, note that encrypted certificates are not supported.
 
-.. _auth_identity:
+.. _authentication_identities:
 
 Identities
 ..........

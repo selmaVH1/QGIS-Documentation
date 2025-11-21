@@ -101,7 +101,7 @@ following functionality:
    "|actionRun|", "Actions", "Lists the actions related to the layer"
 
 
-.. note:: Depending on the format of the data and the GDAL library built with
+.. attention:: Depending on the format of the data and the GDAL library built with
    your QGIS version, some tools may not be available.
 
 Below these buttons is the Quick Field Calculation bar (enabled only in
@@ -527,7 +527,7 @@ Putting the layer into edit mode will also allow you to
 |editPaste| :sup:`Paste features from clipboard` (:kbd:`Ctrl+V`)
 |editCut| :sup:`Cut selected rows to clipboard` (:kbd:`Ctrl+X`)
 or |deleteSelectedFeatures| :sup:`Delete selected features`.
-More details at :ref:`editingvector`.
+More details at :ref:`clipboard_feature`.
 
 .. _vector_field_calculator:
 
@@ -725,136 +725,76 @@ To use the :guilabel:`Identify features` tool for vector layers, follow these st
 #. Click on the :guilabel:`Identify features` tool in the toolbar or press :kbd:`Ctrl+Shift+I`.
 #. Click on a feature in the map view.
 
+.. _figure_identify_vector:
+
+.. figure:: ../introduction/img/identify_features.png
+   :align: center
+
+   Identify Results dialog
+
 The :guilabel:`Identify results` panel will display different features information
-depending on the layer type. There are two columns in the panel, on the left side
-you can see :guilabel:`Feature` and on the right side :guilabel:`Value`.
-Under the :guilabel:`Feature` column, panel will display following information:
+in a tree view.
+There are two columns in the panel: :guilabel:`Feature` and :guilabel:`Value`.
+The first item is the name of the layer and its children are its identified feature(s).
+Each feature is identified by the :ref:`display name <maptips>` field along with its value.
+Other information about the feature follows:
 
 * **Derived** section - those are the information calculated or derived from other
   information in the layer. For example, the area of a polygon or the length of a line.
   General information that can be found in this section:
 
-  * Depending on the geometry type, cartesian measurements of length, perimeter, or area
-    in the layer's CRS units. For 3D line vectors, the cartesian line length is available.
+  * Depending on the geometry type, the cartesian measurements of length,
+    perimeter or area in the layer's CRS units.
+    For 3D line vectors, the cartesian line length is available.
   * Depending on the geometry type and if an ellipsoid is set in the :guilabel:`Project Properties`
     dialog (:menuselection:`General --> Measurements`), ellipsoidal values
     of length, perimeter, or area using the specified units.
   * The count of geometry parts in the feature and the number of the part clicked.
   * The count of vertices in the feature.
 
-  Coordinate information that can be found in this section:
-  
-  * X and Y coordinate values of the clicked point.
-  * The number of the closest vertex to the clicked point.
-  * X and Y coordinate values of the closest vertex.
-  * If you click on a curved segment, the radius of that section is also displayed.
+  * Coordinate information, using the project properties :guilabel:`Coordinates
+    display` settings:
 
-* **Data attributes**: This is the list of attribute fields and values for the
-  feature that has been clicked.
-* information about the related child feature if you defined a :ref:`relation <vector_relations>`:
+    * ``X`` and ``Y`` coordinate values of the clicked point
+    * the number of the closest vertex to the clicked point
+    * ``X`` and ``Y`` coordinate values of the closest vertex
+      (and ``Z``/``M`` if applicable)
+    * if you click on a curved segment, the radius of that section is also displayed.
+    * if both the vector layer and the project have vertical datums set and they differ,
+      the ``Z`` value will be displayed for both datums.
 
-  * the name of the relation
-  * the entry in reference field, e.g. the name of the related child feature
-  * **Actions**: lists actions defined in the layer's properties dialog (see :ref:`actions_menu`)
-    and the default action is ``View feature form``.
-  * **Data attributes**: This is the list of attributes fields and values of the
-    related child feature.
+* **Actions**: Actions can be added to the identify feature windows.
+  The action is run by clicking on the action label. By default, only one action
+  is added, namely ``View feature form`` for editing. You can define more actions
+  in the layer's properties dialog (see :ref:`actions_menu`).
+* **Data attributes**: This is the list of attribute fields and values
+  for the feature that has been clicked.
 
+  .. note:: Links in the feature's attributes are clickable
+   from the :guilabel:`Identify Results` panel
+   and will open in your default web browser.
 
-.. index:: External Storage, WebDAV
-.. _external_storage:
+* When a vector layer has defined :ref:`relations <vector_relations>`,
+  the :guilabel:`Identify Results` panel can display both **referenced**
+  and **referencing** related features.
+  To view these relations, ensure that the :guilabel:`Show relations` option
+  is enabled in the :ref:`Identify Settings <identify_toolbar>`.
+  Available information for each related feature include:
 
-Storing and fetching an external resource
-==========================================
+  * the name of the relation and the linked layer
+  * the entry in the referenced or referencing field, identifying the feature
+  * the activated actions
+  * the list of attribute fields and values
 
-A field may target a resource stored on an external storage system. Attribute forms can be configured
-so they act as a client to an external storage system in order to store and fetch those resources, on
-users demand, directly from the forms.
+  You can expand related features to explore connected records
+  through multiple levels, including many-to-many (n:m) and polymorphic relations.
+  Only nodes you explicitly expand are loaded, preventing excessive nesting.
 
-.. _external_storage_configuration:
-
-Configuring an external storage
--------------------------------
-
-In order to setup an external storage, you have to first configure it from the vector
-:ref:`attribute form properties <edit_widgets>` and select the :guilabel:`Attachment` widget.
-
-.. _figure_external_storage_configuration:
-
-.. figure:: img/external_storage_configuration.png
-   :align: center
-
-   Editing a WebDAV external storage for a given field
-
-From the :guilabel:`Attachment` widget, you have to first select the :guilabel:`Storage type`:
-
-* :guilabel:`Select Existing File`: The target URL already exists. When
-  you select a resource, no store operation is achieved, the attribute is simply updated with the URL.
-
-* :guilabel:`Simple Copy`: Stores a copy of the resource on a file disk destination
-  (which could be a local or network shared file system) and the attribute is updated with the path to
-  the copy.
-
-* :guilabel:`WebDAV Storage`: The resource is pushed to a HTTP server supporting the
-  `WebDAV <https://en.wikipedia.org/wiki/WebDAV>`_ protocol and the attribute is updated with
-  its URL. `Nextcloud <https://nextcloud.com/>`_, `Pydio <https://pydio.com>`_
-  or other file hosting software support this protocol.
-
-* :guilabel:`AWS S3`: The resource is pushed to a server supporting
-  `AWS Simple Storage Service <https://en.wikipedia.org/wiki/Amazon_S3>`_ protocol and the attribute is
-  updated with its URL. Amazon Web Service and `MinIO <https://en.wikipedia.org/wiki/MinIO>`_ hosting software
-  support this protocol.
-
-Then, you have to set up the :guilabel:`Store URL` parameter, which provides the URL to be used when a new
-resource needs to be stored. It's possible to set up an expression using the
-:ref:`data defined override widget <data_defined>` in order to have specific values according to
-feature attributes.
-
-The variable **@selected_file_path** could be used in that expression and represent the absolute
-file path of the user selected file (using the file selector or drag'n drop).
-
-.. note::
-
-   Using the **WebDAV** or **AWS S3** external storage, if the URL ends with a "/", it is considered as a folder and
-   the selected file name will be appended to get the final URL.
-
-
-If the external storage system needs to, it's possible to configure an
-:ref:`authentication <authentication>`.
-
-.. note::
-
-   To use the **AWS S3** external storage, you must use an **AWS S3** authentication type.
-
-.. _external_storage_use:
-
-Using an external storage
--------------------------
-
-Once configured, you can select a local file using the button :guilabel:`...` when editing a feature's attribute.
-Depending on the configured :ref:`storage type <external_storage_configuration>`, the file
-will be stored on the external storage system (except if :guilabel:`Select existing file` has been
-selected) and the field will be updated with the new resource URL.
-
-.. _figure_external_storage_store:
-
-.. figure:: img/external_storage_store.png
-   :align: center
-
-   Storing a file to a WebDAV external storage
-
-.. note::
-
-   User can also achieve the same result if he drags and drops a file on the whole attachment
-   widget.
-
-Use the |taskCancel| :sup:`Cancel` button to abort the storing process.
-It's possible to configure a viewer using the :guilabel:`Integrated document viewer`
-so the resource will be automatically fetched from the external storage system and
-displayed directly below the URL.
-The above |warning| icon indicates that the resource cannot be fetched
-from the external storage system. In that case, more details might appear in the
-:ref:`log_message_panel`.
+  To focus on a specific related record, right-click it and choose :guilabel:`Identify Feature`.
+  This re-centers the identify results on the selected feature,
+  starting a new identification tree from it and effectively limiting the visible nesting depth.
+  Features already shown in ancestor nodes are automatically omitted
+  to avoid duplicates or circular relations.
 
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
@@ -949,13 +889,9 @@ from the external storage system. In that case, more details might appear in the
    :width: 1.5em
 .. |sourceFields| image:: /static/common/mSourceFields.png
    :width: 1.5em
-.. |taskCancel| image:: /static/common/mTaskCancel.png
-   :width: 1.5em
 .. |toggleEditing| image:: /static/common/mActionToggleEditing.png
    :width: 1.5em
 .. |undo| image:: /static/common/mActionUndo.png
-   :width: 1.5em
-.. |warning| image:: /static/common/mIconWarning.png
    :width: 1.5em
 .. |zoomTo| image:: /static/common/mActionZoomTo.png
    :width: 1.5em
